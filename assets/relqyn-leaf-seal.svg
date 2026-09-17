@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Relqyn Leaf Seal">
+  <title>Relqyn Leaf Seal Monogram</title>
+  <desc>Circular seal with R and abstract 3-segment leaf cut from the bowl.</desc>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#1C2421" stroke-width="6"/>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#7A8F7C" stroke-width="1.5"/>
+  <!-- R stem -->
+  <path fill="#1C2421" d="M62 52 h28 c22 0 36 12 36 32 0 14-7 24-19 29 l22 35 h-18 l-20-32 H78 v32 H62 V52zm16 14 v28 h14 c10 0 17-5 17-14s-7-14-17-14H78z"/>
+  <!-- Abstract 3-segment leaf (chevron stack) in negative space area right of R bowl -->
+  <g fill="#3D5A45" transform="translate(128,58) rotate(25)">
+    <path d="M0 36 L14 20 L28 36 L14 28 Z"/>
+    <path d="M0 50 L14 34 L28 50 L14 42 Z"/>
+    <path d="M0 64 L14 48 L28 64 L14 56 Z"/>
+  </g>
+</svg>
