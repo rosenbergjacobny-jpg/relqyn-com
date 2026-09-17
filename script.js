@@ -1,5 +1,6 @@
 (function(){
   const key='relqyn-cart';
+  const ORDER_EMAIL='rosenbergjacobny@gmail.com';
   let cart=[];
   try{cart=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){cart=[]}
   const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
@@ -9,19 +10,53 @@
   function render(){
     const count=cart.reduce((n,x)=>n+x.qty,0); $$('.cart-count').forEach(el=>el.textContent=count);
     const list=$('#cart-items'), total=$('#cart-total'); if(!list)return;
-    if(!cart.length){list.innerHTML='<p class="empty-cart">Your cart is ready for a better clean.</p>'; total.textContent=money(0); return}
+    if(!cart.length){list.innerHTML='<p class="empty-cart">Your cart is empty. Add Relqyn essentials to place an order.</p>'; total.textContent=money(0); return}
     list.innerHTML=cart.map((x,i)=>`<div class="cart-item"><div><strong>${x.name}</strong><small>${x.qty} × ${money(x.price)}</small></div><button class="remove-item" data-index="${i}" aria-label="Remove ${x.name}">×</button></div>`).join('');
     total.textContent=money(cart.reduce((n,x)=>n+x.price*x.qty,0));
     $$('.remove-item').forEach(b=>b.addEventListener('click',()=>{cart.splice(Number(b.dataset.index),1);save()}));
   }
   function toast(msg){let el=$('.toast');if(!el){el=document.createElement('div');el.className='toast';document.body.appendChild(el)}el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
+  function orderMailto(lines){
+    const total=cart.reduce((n,x)=>n+x.price*x.qty,0);
+    const body=[
+      'Hello Relqyn,',
+      '',
+      'I would like to place an order:',
+      '',
+      ...(lines||cart.map(x=>`- ${x.qty} × ${x.name} (${money(x.price)} each)`)),
+      '',
+      `Estimated total: ${money(total)}`,
+      '',
+      'Ship to:',
+      'Name:',
+      'Street address:',
+      'City, State, ZIP:',
+      'Phone:',
+      '',
+      'Please confirm payment instructions and shipping.',
+      ''
+    ].join('\n');
+    const href='mailto:'+ORDER_EMAIL+'?subject='+encodeURIComponent('Relqyn order')+'&body='+encodeURIComponent(body);
+    window.location.href=href;
+  }
   $$('.add-to-cart').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('[data-product]')||document.body;add({name:card.dataset.name||btn.dataset.name||'Relqyn product',price:Number(card.dataset.price||btn.dataset.price||0),qty:Number($('#quantity')?.value||1)})}));
-  $$('.buy-now').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('[data-product]')||document.body;add({name:card.dataset.name||btn.dataset.name||'Relqyn product',price:Number(card.dataset.price||btn.dataset.price||0),qty:Number($('#quantity')?.value||1)});$('#cart-drawer')?.classList.add('open')}));
+  $$('.buy-now').forEach(btn=>btn.addEventListener('click',()=>{
+    const card=btn.closest('[data-product]')||document.body;
+    const item={name:card.dataset.name||btn.dataset.name||'Relqyn product',price:Number(card.dataset.price||btn.dataset.price||0),qty:Number($('#quantity')?.value||1)};
+    add(item);
+    orderMailto([`- ${item.qty} × ${item.name} (${money(item.price)} each)`]);
+  }));
   $$('.cart-open').forEach(b=>b.addEventListener('click',()=>$('#cart-drawer')?.classList.add('open')));
   $$('.cart-close').forEach(b=>b.addEventListener('click',()=>$('#cart-drawer')?.classList.remove('open')));
   $('#menu-button')?.addEventListener('click',()=>$('#nav-links')?.classList.toggle('open'));
   $('#quantity-minus')?.addEventListener('click',()=>{const q=$('#quantity');q.value=Math.max(1,Number(q.value)-1)});
   $('#quantity-plus')?.addEventListener('click',()=>{const q=$('#quantity');q.value=Number(q.value)+1});
-  $('#checkout')?.addEventListener('click',()=>toast('Demo checkout — connect your storefront to accept payment.'));
+  $('#checkout')?.addEventListener('click',()=>{
+    if(!cart.length){toast('Add an item before placing an order.');return}
+    orderMailto();
+  });
+  $$('.email-order').forEach(a=>{
+    a.setAttribute('href','mailto:'+ORDER_EMAIL+'?subject='+encodeURIComponent('Relqyn order inquiry'));
+  });
   render();
 })();
