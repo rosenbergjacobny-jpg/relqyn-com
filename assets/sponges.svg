@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 520" role="img" aria-label="Relqyn plant-based sponges">
+  <ellipse cx="310" cy="454" rx="200" ry="24" fill="#b8a78c" opacity=".3"/>
+  <g transform="translate(125 80) rotate(-9 150 150)"><rect width="310" height="300" rx="42" fill="#e3a668" stroke="#b97d49" stroke-width="7"/><path d="M20 85 Q95 40 165 83 T290 81 M20 175 Q95 130 165 173 T290 171 M20 260 Q95 215 165 258 T290 256" fill="none" stroke="#f3c58f" stroke-width="18" opacity=".9"/><path d="M42 34h220" stroke="#f9e2bc" stroke-width="5" opacity=".8"/></g>
+  <g transform="translate(198 125) rotate(12 150 150)"><rect width="310" height="300" rx="42" fill="#d18d56" stroke="#a96e45" stroke-width="7"/><path d="M20 85 Q95 40 165 83 T290 81 M20 175 Q95 130 165 173 T290 171 M20 260 Q95 215 165 258 T290 256" fill="none" stroke="#efba7e" stroke-width="18" opacity=".9"/><rect x="26" y="25" width="258" height="92" rx="12" fill="#f8efdf"/><text x="49" y="58" font-family="Arial,sans-serif" font-size="14" letter-spacing="3" fill="#284e3a">RELQYN HOME</text><text x="49" y="95" font-family="Georgia,serif" font-size="30" fill="#193b2a">Plant-based</text></g>
+</svg>
